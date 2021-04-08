@@ -6,14 +6,14 @@ class RPCHost():
     def __init__(self):
         self._session = requests.Session()
         try:
-            with open( os.getenv("HOME") +'/.bitcoin/bitcoin.conf') as fp:
-                RPCPORT="8332"
+            with open( os.getenv("HOME") +'/.litecoin/litecoin.conf') as fp:
+                RPCPORT="9332"
                 RPCHOST="localhost"
                 RPCSSL=False
                 for line in fp:
                     #print line
                     if line.split('=')[0] == "testnet" and line.split('=')[1] == "1":
-                        RPCPORT="18332"
+                        RPCPORT="19335"
                     elif line.split('=')[0] == "rpcuser":
                         RPCUSER=line.split('=')[1].strip()
                     elif line.split('=')[0] == "rpcpassword":
@@ -28,7 +28,7 @@ class RPCHost():
                         else:
                             RPCSSL=False
         except IOError as e:
-            response='{"error": "Unable to load bitcoin config file. Please Notify Site Administrator"}'
+            response='{"error": "Unable to load litecoin config file. Please Notify Site Administrator"}'
             return response
         if RPCSSL:
             self._url = "https://"+RPCUSER+":"+RPCPASS+"@"+RPCHOST+":"+RPCPORT
@@ -66,7 +66,7 @@ class RPCHost():
 #Define / Create RPC connection
 host=RPCHost()
 
-#Bitcoin Generic RPC calls
+#Litecoin Generic RPC calls
 def getinfo():
     try:
       #support omnicore v0.6

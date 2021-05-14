@@ -1,5 +1,5 @@
 # omniapi
-API Services for Omni 
+API Services for OmniLite
 
 <b>NOTE: The following is a work in progress and should not be considered production ready/usable</b>
 
@@ -14,7 +14,7 @@ Install python pip and the python packages from pip
 ## Config files needed
 To connect to and use the omnicored client define the following file with the following structure.
 ```
-cat ~/.bitcoin/bitcoin.conf
+cat ~/.litecoin/litecoin.conf
 rpcuser=
 rpcpassword=
 rpcport=

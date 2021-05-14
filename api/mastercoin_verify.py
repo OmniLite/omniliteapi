@@ -3,7 +3,6 @@ import glob
 import re
 #from flask import Flask, request, jsonify, abort, json
 from flask_rate_limit import *
-#import psycopg2, psycopg2.extras
 from common import *
 from debug import *
 from property_service import getpropdistraw

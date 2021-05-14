@@ -1,5 +1,4 @@
 import urlparse
-import os, sys, pybitcointools, bitcoinrpc, getpass
 from bitcoin_tools import *
 from sqltools import *
 from rpcclient import *

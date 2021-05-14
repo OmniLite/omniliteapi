@@ -1,5 +1,5 @@
-import urlparse
-import os, sys, re, random, pybitcointools, bitcoinrpc, math
+from api.bitcoin_tools import pubtoaddr
+import re
 from decimal import Decimal
 from common import *
 from blockchain_utils import *
@@ -8,14 +8,14 @@ import config
 
 class OmniTransaction:
     confirm_target=6
-    HEXSPACE_SECOND='21'
-    mainnet_exodus_address='1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P'
-    testnet_exodus_address='mpexoDuSkGGqvqrkrjiFng38QPkJQVFyqv'
+    HEXSPACE_SECOND='84'
+    mainnet_exodus_address='LTceXoduS2cetpWJSe47M25i5oKjEccN1h'
+    testnet_exodus_address='QeVAq4mudsSSvyM6mBkd7cUuPsgBBrLq83'
 
     def __init__(self,tx_type,form):
         #self.conn = getRPCconn()
         self.testnet = False
-        self.magicbyte = 0
+        self.magicbyte = 48
         self.exodus_address=self.mainnet_exodus_address
 
         if 'testnet' in form and ( form['testnet'] in ['true', 'True'] ):
@@ -25,7 +25,7 @@ class OmniTransaction:
 
         try:
           if config.D_PUBKEY and ( 'donate' in form ) and ( form['donate'] in ['true', 'True'] ):
-            print_debug(("We're Donating to pubkey for: ",pybitcointools.pubkey_to_address(config.D_PUBKEY)),4)
+            print_debug(("We're Donating to pubkey for: ",pubtoaddr(config.D_PUBKEY)),4)
             self.pubkey = config.D_PUBKEY
           else:
             print_debug("not donating",4)

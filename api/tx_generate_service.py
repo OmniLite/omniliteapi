@@ -1,21 +1,16 @@
-import urlparse
-import os, sys, re, random,pybitcointools, bitcoinrpc, math
-from decimal import Decimal
-#from flask import Flask, request, jsonify, abort, json, make_response
 from flask_rate_limit import *
 from common import *
 from blockchain_utils import *
-import config
 from omnitransaction import OmniTransaction
 from debug import *
 
 app = Flask(__name__)
 app.debug = True
 
-HEXSPACE_SECOND='21'
-mainnet_exodus_address='1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P'
-testnet_exodus_address='mpexoDuSkGGqvqrkrjiFng38QPkJQVFyqv'
-magicbyte=0
+HEXSPACE_SECOND='84'
+mainnet_exodus_address='LTceXoduS2cetpWJSe47M25i5oKjEccN1h'
+testnet_exodus_address='QeVAq4mudsSSvyM6mBkd7cUuPsgBBrLq83'
+magicbyte=48
 testnet=False
 exodus_address=mainnet_exodus_address
 

@@ -27,8 +27,7 @@ def requeststat_aspx():
 
     prop=args['prop']
     address=args['address']
-    #if is_valid_bitcoin_address(address):
-      #jsonify encapsulates in a string, just return number
+    #jsonify encapsulates in a string, just return number
     return balance_propid(address,prop)
     #else:
     #  return jsonify({"error":"invalid address"})
@@ -62,8 +61,7 @@ def ask_aspx():
 
     prop=args['prop']
     address=args['address']
-    #if is_valid_bitcoin_address(address):
-      #jsonify encapsulates in a string, just return number
+    #jsonify encapsulates in a string, just return number
     return balance_propid(address,prop)
     #else:
     #  return jsonify({"error":"invalid address"})
@@ -121,7 +119,6 @@ def ask_aspx():
       return jsonify({"error":"invalid request"})
 
     address=args['address']
-    #if is_valid_bitcoin_address(address):
     return jsonify( getaddrhist(address,'both'))
     #else:
     #  return jsonify({"error":"invalid address"})
@@ -132,7 +129,6 @@ def ask_aspx():
       return jsonify({"error":"invalid request"})
 
     address=args['address']
-    #if is_valid_bitcoin_address(address):
     return jsonify( getaddrhist(address,'send'))
     #else:
     #  return jsonify({"error":"invalid address"})
@@ -143,7 +139,6 @@ def ask_aspx():
       return jsonify({"error":"invalid request"})
 
     address=args['address']
-    #if is_valid_bitcoin_address(address):
     return jsonify( getaddrhist(address,'receive'))
     #else:
     #  return jsonify({"error":"invalid address"})

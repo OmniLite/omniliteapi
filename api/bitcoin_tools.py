@@ -1,12 +1,9 @@
-#import hashlib
-#import re
-from pycoin import encoding
-from pybitcointools import pubtoaddr
-#from ecdsa import curves, ecdsa
+from pycoin.symbols.ltc import network
+from pycoin.encoding.hexbytes import h2b
 
 __b58chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 __b58base = len(__b58chars)
-max_currency_value=21000000
+max_currency_value=84000000
 dust_limit=546
 
 def formatted_decimal(float_number):
@@ -56,16 +53,24 @@ def b58decode(v, length):
 
 def is_pubkey_valid(pubkey):
     try:
-        return encoding.is_valid_bitcoin_address(pubtoaddr(pubkey))
+        hpub = h2b(pubkey)
+        k = network.keys.public(hpub)
+        network.parse.address(k.address())
+        return True
     except:
         return False
 
 def is_valid_bitcoin_address(addr):
     try:
-        return encoding.is_valid_bitcoin_address(addr)
+        network.parse.address(addr)
+        return True
     except:
         return False
 
 def is_valid_bitcoin_address_or_pubkey(value):
     return is_valid_bitcoin_address or is_pubkey_valid(value)
 
+def pubtoaddr(pubkey):
+    hpub = h2b(pubkey)
+    k = network.keys.public(hpub)
+    return k.address()

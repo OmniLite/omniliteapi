@@ -18,9 +18,9 @@ def isvalid(address):
     ret = False
 
     if TESTNET:
-      checkset = ['m','n','2']
+      checkset = ['m','n','Q']
     else:
-      checkset = ['1','3']
+      checkset = ['L','M']
 
     try:
       if str(address[0]) in checkset:

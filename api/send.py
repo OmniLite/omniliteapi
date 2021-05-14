@@ -1,11 +1,9 @@
-import urlparse
-import os, sys
+from api.bitcoin_tools import pubtoaddr
 from blockchain_utils import *
 from common import *
 from debug import *
 from pending import checkpendingpaymentduplicate
 from decimal import Decimal
-import random
 import config
 
 try:
@@ -35,11 +33,11 @@ def send_form_response(response_dict):
     if TESTNET or ('testnet' in response_dict and ( response_dict['testnet'][0] in ['true', 'True'] )):
         testnet =True
         magicbyte = 111
-        exodus_address='mpexoDuSkGGqvqrkrjiFng38QPkJQVFyqv'
+        exodus_address='QeVAq4mudsSSvyM6mBkd7cUuPsgBBrLq83'
     else:
         testnet = False
         magicbyte = 0
-        exodus_address='1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P'
+        exodus_address='LTceXoduS2cetpWJSe47M25i5oKjEccN1h'
 
     if response_dict.has_key( 'pubKey' ) and is_pubkey_valid( response_dict['pubKey'][0]):
         pubkey = response_dict['pubKey'][0]
@@ -51,11 +49,7 @@ def send_form_response(response_dict):
     print_debug(response_dict,4)
 
     from_addr=response_dict['from_address'][0]
-    #if not is_valid_bitcoin_address_or_pubkey(from_addr):
-    #    return (None, 'From address is neither bitcoin address nor pubkey')
     to_addr=response_dict['to_address'][0]
-    #if not is_valid_bitcoin_address(to_addr):
-    #    return (None, 'To address is not a bitcoin address')
     amount=response_dict['amount'][0]
     if float(amount)<0 or float( from_satoshi(amount))>max_currency_value:
         return (None, 'Invalid amount: ' + str( from_satoshi( amount )) + ', max: ' + str( max_currency_value ))
@@ -122,7 +116,7 @@ def prepare_send_tx_for_signing(from_address, to_address, marker_address, amount
     # check if address or pubkey was given as from address
     if from_address.startswith('0'): # a pubkey was given
         from_address_pub=from_address
-        from_address=pybitcointools.pubkey_to_address(from_address,magicbyte)
+        from_address=pubtoaddr(from_address,magicbyte)
     else: # address was given
         from_address_pub=addrPub=bc_getpubkey(from_address)
         from_address_pub=from_address_pub.strip()
@@ -186,16 +180,20 @@ def prepare_send_tx_for_signing(from_address, to_address, marker_address, amount
         pass
 
     #tx=mktx(inputs_outputs)
-    tx=pybitcointools.mktx(ins,outs)
-    info('inputs_outputs are '+str(ins)+' '+str(outs))
-    #info('inputs_outputs are '+inputs_outputs)
-    info('parsed tx is '+str(pybitcointools.deserialize(tx)))
 
-    hash160=bc_address_to_hash_160(from_address).encode('hex_codec')
-    prevout_script='OP_DUP OP_HASH160 ' + hash160 + ' OP_EQUALVERIFY OP_CHECKSIG'
+    # losh11: disable until suitable replacement for pybitcointools in pycoin is found
+    #
+    # tx=pybitcointools.mktx(ins,outs)
+    # info('inputs_outputs are '+str(ins)+' '+str(outs))
+    # #info('inputs_outputs are '+inputs_outputs)
+    # info('parsed tx is '+str(pybitcointools.deserialize(tx)))
 
-    # tx, inputs
-    return_dict={'transaction':tx, 'sourceScript':prevout_script}
+    # hash160=bc_address_to_hash_160(from_address).encode('hex_codec')
+    # prevout_script='OP_DUP OP_HASH160 ' + hash160 + ' OP_EQUALVERIFY OP_CHECKSIG'
+
+    # # tx, inputs
+    # return_dict={'transaction':tx, 'sourceScript':prevout_script}
+    return_dict={'transaction': "faketransactionid", 'sourceScript': "dummyprevout_script"}
     return return_dict
 
 def send_handler(environ, start_response):

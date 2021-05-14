@@ -1,6 +1,5 @@
-import urlparse
-import os, sys, tempfile, json
-import glob,time
+import json
+import time
 from common import *
 from decimal import *
 import re

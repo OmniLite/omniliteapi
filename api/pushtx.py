@@ -1,5 +1,4 @@
-import urlparse
-import os, sys,re
+import re
 from common import *
 from pending import *
 from debug import *

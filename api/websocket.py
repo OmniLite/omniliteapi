@@ -1,5 +1,5 @@
 import time, datetime
-import json, re, sys
+import json, sys
 import uuid
 import yaml
 

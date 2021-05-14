@@ -9,14 +9,12 @@ from Crypto.Signature import PKCS1_v1_5
 from Crypto.Hash import SHA
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
-#from flask import Flask, request, jsonify, abort, json
 from flask_rate_limit import *
 from simplekv.fs import FilesystemStore
 from uuid import UUID
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
-from email.Utils import COMMASPACE, formatdate
 from email import Encoders
 from sqltools import *
 from recaptcha.client import captcha

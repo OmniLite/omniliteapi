@@ -1,4 +1,3 @@
-#from flask import Flask, request, Response, jsonify, abort, json, make_response
 from flask_rate_limit import *
 from bitcoin_tools import *
 from get_balance import balance_propid

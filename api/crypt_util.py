@@ -1,6 +1,5 @@
 import hashlib
 import os
-from time import gmtime, strftime
 import datetime
 import random
 

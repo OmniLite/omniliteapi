@@ -46,7 +46,7 @@ def getpropertyraw(prop_id):
   except:
     print_debug(("cache looked failed",ckey),7)
     if property_ in [0,1,2]:
-      ROWS=dbSelect("select propertydata,registrationdata,flags from smartproperties sp where (protocol='Bitcoin' or protocol='Omni') and sp.propertyid=%s",[property_])
+      ROWS=dbSelect("select propertydata,registrationdata,flags from smartproperties sp where (protocol='Litecoin' or protocol='Omni') and sp.propertyid=%s",[property_])
 
       try:
         ret=json.loads(ROWS[0][0])

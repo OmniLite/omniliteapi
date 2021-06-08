@@ -27,16 +27,16 @@ def send_form_response(response_dict):
     if "." in response_dict['amount']:
       return (None, "Invalid Format. Amount should be specified in satoshis with no decimal point")
 
-    if 'currency' in response_dict and (response_dict['currency'] not in ['BTC','btc',0,'0']):
+    if 'currency' in response_dict and (response_dict['currency'] not in ['LTC','ltc',0,'0']):
         return (None, "Endpoint does not support that currency")
 
     if TESTNET or ('testnet' in response_dict and ( response_dict['testnet'][0] in ['true', 'True'] )):
         testnet =True
-        magicbyte = 111
+        magicbyte = 58
         exodus_address='QeVAq4mudsSSvyM6mBkd7cUuPsgBBrLq83'
     else:
         testnet = False
-        magicbyte = 0
+        magicbyte = 48
         exodus_address='LTceXoduS2cetpWJSe47M25i5oKjEccN1h'
 
     if response_dict.has_key( 'pubKey' ) and is_pubkey_valid( response_dict['pubKey'][0]):
@@ -159,8 +159,8 @@ def prepare_send_tx_for_signing(from_address, to_address, marker_address, amount
     # calculate change
     change_value=inputs_total_value-required_value-fee
     if change_value < 0:
-        info('Error not enough BTC to generate tx - negative change')
-        raise Exception('This address must have enough BTC for miner fees and protocol transaction fees')
+        info('Error not enough LTC to generate tx - negative change')
+        raise Exception('This address must have enough LTC for miner fees and protocol transaction fees')
 
     # create a normal bitcoin transaction (not mastercoin)
     # dust to marker if required
@@ -182,18 +182,18 @@ def prepare_send_tx_for_signing(from_address, to_address, marker_address, amount
     #tx=mktx(inputs_outputs)
 
     # losh11: disable until suitable replacement for pybitcointools in pycoin is found
-    #
-    # tx=pybitcointools.mktx(ins,outs)
-    # info('inputs_outputs are '+str(ins)+' '+str(outs))
-    # #info('inputs_outputs are '+inputs_outputs)
-    # info('parsed tx is '+str(pybitcointools.deserialize(tx)))
+    # losh11: temporarily reenable for testing
 
-    # hash160=bc_address_to_hash_160(from_address).encode('hex_codec')
-    # prevout_script='OP_DUP OP_HASH160 ' + hash160 + ' OP_EQUALVERIFY OP_CHECKSIG'
+    tx=pybitcointools.mktx(ins,outs)
+    info('inputs_outputs are '+str(ins)+' '+str(outs))
+    #info('inputs_outputs are '+inputs_outputs)
+    info('parsed tx is '+str(pybitcointools.deserialize(tx)))
 
-    # # tx, inputs
-    # return_dict={'transaction':tx, 'sourceScript':prevout_script}
-    return_dict={'transaction': "faketransactionid", 'sourceScript': "dummyprevout_script"}
+    hash160=bc_address_to_hash_160(from_address).encode('hex_codec')
+    prevout_script='OP_DUP OP_HASH160 ' + hash160 + ' OP_EQUALVERIFY OP_CHECKSIG'
+
+    # tx, inputs
+    return_dict={'transaction':tx, 'sourceScript':prevout_script}
     return return_dict
 
 def send_handler(environ, start_response):

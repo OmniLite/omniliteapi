@@ -38,7 +38,7 @@ def decode(rawhex):
     rawBTC = decoderawtransaction(rawhex)['result']
     inputs = getinputs(rawBTC)['inputs']
   except:
-    rawBTC = "Can\'t decode BTC TX."
+    rawBTC = "Can't decode LTC TX."
     inputs = {}
 
   try:
@@ -61,9 +61,9 @@ def decode(rawhex):
         print sia
 
   if sender == "":
-    error = "Can\'t decode Omni TX. No valid sending address found."
+    error = "Can't decode Omni TX. No valid sending address found."
   else:
     error = "None"
 
-  print {'Sender':sender,'Reference':reference,'BTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}
-  return {'Sender':sender,'Reference':reference,'BTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}
+  print {'Sender':sender,'Reference':reference,'LTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}
+  return {'Sender':sender,'Reference':reference,'LTC':rawBTC, 'OMNI':rawOMNI,'inputs':inputs, 'error':error}

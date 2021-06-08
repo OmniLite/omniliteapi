@@ -11,7 +11,7 @@ def checkpendingpaymentduplicate(txhex):
     print_debug(("Error: ", e, "\n Could not decode unsignedpretx: ", txhex),2)
     return ret
 
-  if 'BTC' in rawtx:
+  if 'LTC' in rawtx:
     try:
       inputs=rawtx['inputs']
       sender = inputs.keys()[0]
@@ -21,7 +21,7 @@ def checkpendingpaymentduplicate(txhex):
         txdbserialnum = txdbserial[0]
         if ret:
           break
-        for vout in rawtx['BTC']['vout']:
+        for vout in rawtx['LTC']['vout']:
           x=0
           if 'scriptPubKey' in vout:
             address = vout['scriptPubKey']['addresses'][0]
@@ -45,12 +45,12 @@ def insertpending(txhex):
     print_debug(("Error: ", e, "\n Could not decode PendingTx: ", txhex),2)
     return
 
-  if 'BTC' in rawtx:
+  if 'LTC' in rawtx:
     try:
       #handle btc pending amounts
       insertbtc(rawtx)
     except Exception,e:
-      print "error inserting btc", e, "\n Could notinsert rawtx", rawtx
+      print "error inserting ltc", e, "\n Could notinsert rawtx", rawtx
 
   error_strings = ["No Omni Layer Protocol transaction","Error in omni_decodetransaction"]
   if 'MP' in rawtx and not any(x in rawtx['MP'] for x in error_strings):
@@ -64,9 +64,9 @@ def insertbtc(rawtx):
     inputs=rawtx['inputs']
     propertyid = 0
     txtype = 0
-    txversion = rawtx['BTC']['version']
-    txhash = rawtx['BTC']['txid']
-    protocol = "Bitcoin"
+    txversion = rawtx['LTC']['version']
+    txhash = rawtx['LTC']['txid']
+    protocol = "Litecoin"
     txdbserialnum = dbSelect("select least(-1,min(txdbserialnum)) from transactions;")[0][0]
     txdbserialnum -= 1
     addresstxindex = 0
@@ -85,7 +85,7 @@ def insertbtc(rawtx):
 
     addresstxindex = 0
     addressrole="recipient"
-    for output in rawtx['BTC']['vout']:
+    for output in rawtx['LTC']['vout']:
       outputamount = int(decimal.Decimal(str(output['value']))*decimal.Decimal(1e8))
       if output['scriptPubKey']['type'] != "nulldata":
         for addr in output['scriptPubKey']['addresses']:
@@ -95,11 +95,11 @@ def insertbtc(rawtx):
         addresstxindex+=1
 
     #store signed tx until it confirms
-    dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['BTC'])) )
+    dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['LTC'])) )
 
     dbCommit()
   except Exception,e:
-    print_debug(("Error: ", e, "\n Could not add BTC PendingTx: ", rawtx),2)
+    print_debug(("Error: ", e, "\n Could not add LTC PendingTx: ", rawtx),2)
     dbRollback()
 
 def insertomni(rawtx):
@@ -113,7 +113,7 @@ def insertomni(rawtx):
     propertyid = rawtx['MP']['propertyid'] if 'propertyid' in rawtx['MP'] else rawtx['MP']['propertyidforsale']
     txtype = rawtx['MP']['type_int']
     txversion = rawtx['MP']['version']
-    txhash = rawtx['BTC']['txid']
+    txhash = rawtx['LTC']['txid']
     protocol = "Omni"
     addresstxindex=0
     txdbserialnum = dbSelect("select least(-1,min(txdbserialnum)) from transactions;")[0][0]

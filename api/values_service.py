@@ -21,7 +21,7 @@ def getValueBook(pmaxid=0):
                   "and er.asof=vlist.asof) rates "
                 "on CASE WHEN rates.protocol1='Fiat' "
                   "THEN rates.propertyid1=sp.propertyid and sp.protocol='Fiat' "
-                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Bitcoin') END")
+                  "ELSE rates.propertyid2=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Litecoin') END")
   return book,ERMAX
 
 @app.route('/<currency>')
@@ -41,38 +41,38 @@ def getCurrentPriceRaw(input):
   currency=None
 
   if input[:2].upper() == "SP":
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2 = 'Omni'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
 
   elif len(input) == 6:
-    #double currency, return btc using second currency
+    #double currency, return ltc using second currency
     base=input[:3]
     currency=input[3:]
     protocol1='Fiat'
     pid1=getPropertyid(currency, protocol1)
-    protocol2='Bitcoin'
+    protocol2='Litecoin'
     pid2=getPropertyid(base, protocol2)
 
-  elif input == 'BTC':
+  elif input == 'LTC':
     #default to USD
     protocol1='Fiat'
     pid1=getPropertyid('USD', protocol1)
-    protocol2='Bitcoin'
-    pid2=getPropertyid('BTC', protocol2)
+    protocol2='Litecoin'
+    pid2=getPropertyid('LTC', protocol2)
 
   elif input == 'OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=1
 
   elif input == 'T-OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=2
@@ -137,38 +137,38 @@ def history(currency=None):
   currency=None
 
   if input[:2].upper() == "SP":
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=input[2:]
 
   elif len(input) == 6:
-    #double currency, return btc using second currency
+    #double currency, return ltc using second currency
     base=input[:3]
     currency=input[3:]
     protocol1='Fiat'
     pid1=getPropertyid(currency, protocol1)
-    protocol2='Bitcoin'
+    protocol2='Litecoin'
     pid2=getPropertyid(base, protocol2)
 
-  elif input == 'BTC':
+  elif input == 'LTC':
     #default to USD
     protocol1='Fiat'
     pid1=getPropertyid('USD', protocol1)
-    protocol2='Bitcoin'
-    pid2=getPropertyid('BTC', protocol2)
+    protocol2='Litecoin'
+    pid2=getPropertyid('LTC', protocol2)
 
   elif input == 'OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=getPropertyid('OMNI', protocol2)
 
   elif input == 'T-OMNI':
-    protocol1='Bitcoin'
-    pid1=getPropertyid('BTC', protocol1)
+    protocol1='Litecoin'
+    pid1=getPropertyid('LTC', protocol1)
     protocol2='Omni'
     #strip off the SP and grab just the numbers
     pid2=getPropertyid('T-OMNI', protocol2)

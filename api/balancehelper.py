@@ -96,12 +96,12 @@ def getBalanceData(address,btcdata):
                              atx.propertyid) s2
                         on s1.propertyid=s2.propertyid) f1
                      inner join smartproperties sp
-                     on f1.propertyid=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Bitcoin')
+                     on f1.propertyid=sp.propertyid and (sp.protocol='Omni' or sp.protocol='Litecoin')
                      order by f1.propertyid""",(addr,addr))
       balance_data = { 'balance': [] }
       for balrow in ROWS:
         cID = str(int(balrow[0])) #currency id
-        sym_t = ('BTC' if cID == '0' else ('OMNI' if cID == '1' else ('T-OMNI' if cID == '2' else 'SP' + cID) ) ) #symbol template
+        sym_t = ('LTC' if cID == '0' else ('OMNI' if cID == '1' else ('T-OMNI' if cID == '2' else 'SP' + cID) ) ) #symbol template
         #1 = new indivisible property, 2=new divisible property (per spec)
         divi = True if int(balrow[1]) == 2 else False
         res = { 'symbol' : sym_t, 'divisible' : divi, 'id' : cID }
@@ -133,7 +133,7 @@ def getBalanceData(address,btcdata):
         if x['id'] == 0:
           addbtc=False
       if addbtc:
-        btc_balance = { 'symbol': 'BTC',
+        btc_balance = { 'symbol': 'LTC',
                         'divisible': True,
                         'id' : '0',
                         'value' : btc_bal,

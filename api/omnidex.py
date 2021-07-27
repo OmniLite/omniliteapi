@@ -6,6 +6,7 @@ from sqltools import *
 from math import ceil
 from debug import *
 from cacher import *
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

@@ -4,6 +4,7 @@ from common import *
 from cacher import *
 from debug import *
 from decimal import Decimal
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

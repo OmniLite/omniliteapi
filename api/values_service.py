@@ -1,6 +1,7 @@
 from flask_rate_limit import *
 from sqltools import *
 import re
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

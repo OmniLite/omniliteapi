@@ -4,6 +4,7 @@ from balancehelper import *
 from common import *
 from flask_rate_limit import *
 from validator import isvalid
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

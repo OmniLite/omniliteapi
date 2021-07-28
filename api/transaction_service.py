@@ -8,6 +8,7 @@ from cacher import *
 from properties_service import getpropnamelist
 from debug import *
 from validator import isvalid
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

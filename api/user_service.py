@@ -19,6 +19,7 @@ from email import Encoders
 from sqltools import *
 from recaptcha.client import captcha
 import config
+from flask import Flask
 
 ACCOUNT_CREATION_DIFFICULTY = '0400'
 LOGIN_DIFFICULTY = '0400'

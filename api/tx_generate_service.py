@@ -3,6 +3,7 @@ from common import *
 from blockchain_utils import *
 from omnitransaction import OmniTransaction
 from debug import *
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

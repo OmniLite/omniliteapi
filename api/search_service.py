@@ -6,6 +6,7 @@ from transaction_service import gettxjson
 from get_balance import balance_full
 from cacher import *
 from debug import *
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

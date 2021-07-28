@@ -6,6 +6,7 @@ from property_service import getpropertyraw, getpropdistraw
 from omnidex import get_orders_by_market_book_oe, get_last_price_raw, get_24hr_hist_raw, get_24hr_vol_raw
 from common import raw_revision
 from debug import *
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

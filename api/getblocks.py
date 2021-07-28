@@ -3,6 +3,7 @@ from flask_rate_limit import *
 from common import *
 from cacher import *
 from debug import *
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

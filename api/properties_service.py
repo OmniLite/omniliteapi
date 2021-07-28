@@ -5,6 +5,7 @@ from property_service import getpropertyraw
 from cacher import *
 from debug import *
 import config
+from flask import Flask
 
 data_dir_root = config.LOCALDATADIR
 

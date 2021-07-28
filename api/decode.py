@@ -2,6 +2,7 @@ from flask_rate_limit import *
 from decimal import Decimal
 from rpcclient import *
 import re
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

@@ -7,6 +7,7 @@ from values_service import getCurrentPriceRaw
 from cacher import *
 from debug import *
 from common import raw_revision
+from flask import Flask
 
 app = Flask(__name__)
 app.debug = True

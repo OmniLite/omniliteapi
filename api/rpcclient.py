@@ -1,6 +1,7 @@
 import requests
 import time, json
 import os
+import sys
 
 class RPCHost():
     def __init__(self):
@@ -28,8 +29,8 @@ class RPCHost():
                         else:
                             RPCSSL=False
         except IOError as e:
-            response='{"error": "Unable to load litecoin config file. Please Notify Site Administrator"}'
-            return response
+            print('{"error": "Unable to load litecoin config file. Please Notify Site Administrator"}')
+            sys.exit(1)
         if RPCSSL:
             self._url = "https://"+RPCUSER+":"+RPCPASS+"@"+RPCHOST+":"+RPCPORT
         else:
